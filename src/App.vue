@@ -5,6 +5,7 @@
 
     <div v-if="authenticatedUserName==''">
       <login-form @logged="loginUser($event)"></login-form>
+      <!-- <login-form @logged="loginUser($event)" button-label="sss"></login-form> -->
     </div>
     <div v-else>
       <h2>Witaj, {{authenticatedUserName}} !</h2>
