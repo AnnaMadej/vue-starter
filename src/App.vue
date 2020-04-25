@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <h1>Witaj w systemie zapisów na zajęcia!</h1>
-    <div v-if="!logged">
+    <div v-if="authenticatedUserName==''">
       Zaloguj sie emailem:
-    <input type = "text" v-model="email" /><button @click="loginUser()">Wchodzę!</button>
+      <input type = "text" v-model="email" /><button @click="loginUser()">Wchodzę!</button>
     </div>
     <div v-else>
-      <h2>Witaj, {{email}} !</h2>
-      <p @click="logoutUser()">Wyloguj!</p>
+      <h2>Witaj, {{authenticatedUserName}} !</h2>
+      <a @click="logoutUser()">wyloguj!</a>
 
     </div>
 
@@ -22,7 +22,8 @@
     data() {
       return {
         logged: false,
-        email: ''
+        email: '',
+        authenticatedUserName: ''
       }
     },
 
@@ -31,10 +32,12 @@
         alert(this.email);
       },
       loginUser() {
-        this.logged = true;
+        if(this.email.length>1) {
+          this.authenticatedUserName = this.email;
+        }
       },
       logoutUser() {
-        this.logged = false;
+        this.authenticatedUserName = '';
       }
     }
   }
