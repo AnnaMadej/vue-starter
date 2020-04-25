@@ -7,7 +7,7 @@
     </div>
     <div v-else>
       <h2>Witaj, {{authenticatedUserName}} !</h2>
-      <a @click="logoutUser()">wyloguj!</a>
+      <a @click="logoutUser()">Wyloguj</a>
 
     </div>
 
@@ -32,8 +32,10 @@
         alert(this.email);
       },
       loginUser() {
-        if(this.email.length>1) {
+        this.email = this.email.trim();
+        if(this.email.length>0) {
           this.authenticatedUserName = this.email;
+          this.email = '';
         }
       },
       logoutUser() {
