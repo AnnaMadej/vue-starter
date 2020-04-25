@@ -3,10 +3,12 @@
     <h1>Witaj w systemie zapisów na zajęcia!</h1>
     <div v-if="!logged">
       Zaloguj sie emailem:
-    <input type = "email" v-model="email" /><button @click="loginUser()">Wchodzę!</button>
+    <input type = "text" v-model="email" /><button @click="loginUser()">Wchodzę!</button>
     </div>
     <div v-else>
-      Witaj, {{email}} !
+      <h2>Witaj, {{email}} !</h2>
+      <p @click="logoutUser()">Wyloguj!</p>
+
     </div>
 
   </div>
@@ -30,6 +32,9 @@
       },
       loginUser() {
         this.logged = true;
+      },
+      logoutUser() {
+        this.logged = false;
       }
     }
   }
