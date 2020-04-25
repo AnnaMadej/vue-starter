@@ -1,9 +1,10 @@
 <template>
   <div id="app">
+
     <h1>Witaj w systemie zapisów na zajęcia!</h1>
+
     <div v-if="authenticatedUserName==''">
-      Zaloguj sie emailem:
-      <input type = "text" v-model="email" /><button @click="loginUser()">Wchodzę!</button>
+      <login-form @logged="loginUser($event)"></login-form>
     </div>
     <div v-else>
       <h2>Witaj, {{authenticatedUserName}} !</h2>
@@ -17,25 +18,22 @@
 <script>
 
   import "milligram";
+  import LoginForm from "./LoginForm";
 
   export default {
+    components: {LoginForm},
     data() {
       return {
         logged: false,
-        email: '',
         authenticatedUserName: ''
       }
     },
 
     methods: {
-      alertMyEmail() {
-        alert(this.email);
-      },
-      loginUser() {
-        this.email = this.email.trim();
-        if(this.email.length>0) {
-          this.authenticatedUserName = this.email;
-          this.email = '';
+      loginUser(username) {
+        username = username.trim();
+        if(username.length>0) {
+          this.authenticatedUserName = username;
         }
       },
       logoutUser() {
