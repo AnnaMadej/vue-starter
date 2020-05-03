@@ -1,50 +1,46 @@
 <template>
-  <div id="app">
-
-    <h1>Witaj w systemie zapisów na zajęcia!</h1>
-
-    <div v-if="authenticatedUserName==''">
-      <login-form @logged="loginUser($event)"></login-form>
-      <!-- <login-form @logged="loginUser($event)" button-label="sss"></login-form> -->
+  <div>
+    <h1> System do zapisów na zajęcia</h1>
+    <div v-show="loggedUser">
+      <user-panel @logout="logMeOut()" :userName="loggedUser"/>
+      <meeting-page :loggedUser="loggedUser"/>
     </div>
-    <div v-else>
-      <h2>Witaj, {{authenticatedUserName}} !</h2>
-      <a @click="logoutUser()">Wyloguj</a>
-
-      <meetings-list></meetings-list>
-
+    <div v-if="!loggedUser">
+      <login-form @login="logMeIn($event)" v-if="!loggedUser"/>
     </div>
-
   </div>
+
 </template>
 
 <script>
-
   import "milligram";
+  import MeetingPage from "./meetings/MeetingPage";
   import LoginForm from "./LoginForm";
-  import MeetingsList from "./MeetingsList";
+  import UserPanel from "./UserPanel";
+
 
   export default {
-    components: {LoginForm, MeetingsList},
+
+    components: {UserPanel, LoginForm, MeetingPage},
     data() {
       return {
-        logged: false,
-        authenticatedUserName: ''
+        loggedUser: ''
       }
     },
-
     methods: {
-      loginUser(username) {
-        username = username.trim();
-        if(username.length>0) {
-          this.authenticatedUserName = username;
+      logMeIn(userName) {
+        if (userName != null) {
+          this.loggedUser = userName;
         }
       },
-      logoutUser() {
-        this.authenticatedUserName = '';
+      logMeOut() {
+        if (this.loggedUser != null) {
+          this.loggedUser = '';
+        }
       }
     }
   }
+
 </script>
 
 <style>

@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <label>Zaloguj się e-mailem</label>
-        <input type="email" v-model="email">
-        <button @click="enter()">{{ buttonLabelToDisplay }}</button>
+    <div>Zaloguj się emailem
+        <input type="text" v-model="email"/>
+        <button @click="enter()">{{buttonLabelToDisplay}}</button>
     </div>
 </template>
 
@@ -13,21 +12,26 @@
         //         this.buttonLabel = 'Zaloguj się';
         //     }
         // },
-        data() {
+        computed:{
+            buttonLabelToDisplay(){
+                return this.buttonLabel || 'Zaloguj się';
+            }
+        },
+        data(){
             return {
                 email: ''
             }
         },
+        props: ['buttonLabel'],
         methods: {
             enter() {
-                this.$emit('logged', this.email);
-            }
-        },
-        props: ['buttonLabel'],
-        computed: {
-            buttonLabelToDisplay() {
-                return this.buttonLabel || 'Zaloguj się';
+                this.$emit('login', this.email);
+                this.email = '';
             }
         }
     }
 </script>
+
+<style scoped>
+
+</style>
