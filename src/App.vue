@@ -11,6 +11,8 @@
       <h2>Witaj, {{authenticatedUserName}} !</h2>
       <a @click="logoutUser()">Wyloguj</a>
 
+      <meetings-list></meetings-list>
+
     </div>
 
   </div>
@@ -20,9 +22,10 @@
 
   import "milligram";
   import LoginForm from "./LoginForm";
+  import MeetingsList from "./MeetingsList";
 
   export default {
-    components: {LoginForm},
+    components: {LoginForm, MeetingsList},
     data() {
       return {
         logged: false,
