@@ -12,12 +12,12 @@
         //         this.buttonLabel = 'Zaloguj się';
         //     }
         // },
-        computed:{
-            buttonLabelToDisplay(){
+        computed: {
+            buttonLabelToDisplay() {
                 return this.buttonLabel || 'Zaloguj się';
             }
         },
-        data(){
+        data() {
             return {
                 email: ''
             }

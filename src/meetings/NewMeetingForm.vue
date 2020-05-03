@@ -5,7 +5,8 @@
         <input type="text" v-model="newMeeting.name">
         <label>Opis</label>
         <textarea v-model="newMeeting.description"/>
-        <button>Dodaj</button><span class="error" v-if="emptyName">Spotkanie musi mieć nazwę!</span>
+        <button>Dodaj</button>
+        <span class="error" v-if="emptyNameError">Spotkanie musi mieć nazwę!</span>
     </form>
 </template>
 
@@ -20,24 +21,24 @@
                     description: '',
                     participants: [],
                 },
-                emptyName: false
+                emptyNameError: false
             };
         },
         methods: {
             addNewMeeting() {
-                if(this.newMeeting.name){
+                if (this.newMeeting.name) {
                     this.$emit('added', Object.assign({}, this.newMeeting));
-                    this.newMeeting.name='';
-                    this.newMeeting.description='';
-                    this.newMeeting.participants=[];
-                }
-                else {
-                    this.emptyName = true;
+                    this.newMeeting.name = '';
+                    this.newMeeting.description = '';
+                    this.newMeeting.participants = [];
+                } else {
+                    this.emptyNameError = true;
                 }
 
 
             }
-        }}
+        }
+    }
 </script>
 
 <style scoped>

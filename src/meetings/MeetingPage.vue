@@ -1,14 +1,14 @@
 <template>
-    <div >
+    <div>
 
-        <button v-if="!addingMeeting" @click="addingMeeting=true">Dodaj nowe spotkanie</button>
-        <new-meeting-form v-if="addingMeeting" @added="addNewMeeting($event)"/>
-        <meetings-list v-if="meetings.length!=0" :meetings="meetings" :loggedUser="loggedUser"
-                       @enroll="enrollToMeeting($event)"
+        <button @click="addingMeeting=true" v-if="!addingMeeting">Dodaj nowe spotkanie</button>
+        <new-meeting-form @added="addNewMeeting($event)" v-if="addingMeeting"/>
+        <meetings-list :loggedUser="loggedUser" :meetings="meetings" @enroll="enrollToMeeting($event)"
                        @leave="leaveMeeting($event)"
-                       @remove="removeMeeting($event)"/>
+                       @remove="removeMeeting($event)"
+                       v-if="meetings.length>0"/>
 
-        <div v-if="meetings.length==0">Brak zaplanowanych spotkań</div>
+        <div v-else>Brak zaplanowanych spotkań</div>
     </div>
 </template>
 
@@ -17,32 +17,31 @@
     import MeetingsList from "./MeetingsList";
 
 
-
     export default {
         components: {NewMeetingForm, MeetingsList},
         name: "MeetingPage.vue",
         props: ['loggedUser'],
-        data(){
-            return{
+        data() {
+            return {
                 meetings: [],
                 addingMeeting: false
             }
         },
         methods: {
-            addNewMeeting(meeting){
+            addNewMeeting(meeting) {
                 this.meetings.push(meeting);
                 this.addingMeeting = false;
             },
-            enrollToMeeting(meetingName){
-                var meeting;
-                for (var i = 0; i < this.meetings.length; i++) {
+            enrollToMeeting(meetingName) {
+                let meeting;
+                for (let i = 0; i < this.meetings.length; i++) {
                     meeting = this.meetings[i];
                     if (meeting.name === meetingName) {
                         meeting.participants.push(this.loggedUser);
                     }
                 }
             },
-            leaveMeeting(meetingName){
+            leaveMeeting(meetingName) {
                 let meeting;
                 for (let i = 0; i < this.meetings.length; i++) {
                     meeting = this.meetings[i];
@@ -51,10 +50,10 @@
                     }
                 }
             },
-            removeMeeting(meetingName){
-                for (var i = 0; i < this.meetings.length; i++) {
-                    if(this.meetings[i].name===meetingName){
-                        this.meetings.splice(i,1);
+            removeMeeting(meetingName) {
+                for (let i = 0; i < this.meetings.length; i++) {
+                    if (this.meetings[i].name === meetingName) {
+                        this.meetings.splice(i, 1);
                     }
                 }
             }

@@ -7,11 +7,11 @@
                 <th class="column column-10">Nazwa spotkania</th>
                 <th class="column">Opis</th>
                 <th class="column">Uczestnicy</th>
-                <th class="column column-33"></th>
+                <th class="column column-33"/>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="meeting in meetings" :key="meeting.name" class="row">
+            <tr :key="meeting.name" class="row" v-for="meeting in meetings">
                 <td class="column column-10">{{ meeting.name }}</td>
                 <td class="column">{{ meeting.description }}</td>
 
@@ -22,13 +22,13 @@
 
                 </td>
                 <td class="column column-33 right">
-                    <button v-if="!userEnrolled(meeting.participants)" class="button button-outline "
-                            @click="enroll(meeting.name)">Zapisz się
+                    <button @click="enroll(meeting.name)" class="button button-outline "
+                            v-if="!userEnrolled(meeting.participants)">Zapisz się
                     </button>
-                    <button v-if="userEnrolled(meeting.participants)" class="button button-outline"
-                            @click="leave(meeting.name)">Wypisz się
+                    <button @click="leave(meeting.name)" class="button button-outline"
+                            v-if="userEnrolled(meeting.participants)">Wypisz się
                     </button> &nbsp;
-                    <button v-if="meeting.participants.length===0" @click="remove(meeting.name)">Usuń puste
+                    <button @click="remove(meeting.name)" v-if="meeting.participants.length===0">Usuń puste
                         spotkanie
                     </button>
                 </td>
